@@ -6,30 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cost Management</title>
-    <link rel="stylesheet" href="./css/style.css">
+
     <link rel="stylesheet" href="./css/bootstrap.min.css" class="src">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-    <header>
-        <h1>Cost Management</h1>
+    <header class="container">
+        <h1 class="text-center text-warning mt-3 mb-3 ">Cost Management</h1>
     </header>
-    <main class="container-fluid">
+    <main class="container">
         <section class="">
-            <div class="row row-cols-2">
+            <div class="row">
 
-                <div class="col ">
-                    <img class="img-fluid" src="./images/cost2.jpeg" style="width:100%" alt="">
+                <div class="col-lg-6 col-md-6 col-sm-12 ">
+                    <img class="img-fluid rounded-3" src="./images/cost2.jpeg" style="width:100%; height:530px;" alt="">
                 </div>
-
-                <div class="col">
-                    <h3>Income</h3>
+                <!-- Income Input -->
+                <div class="col-lg-6 col-md-6 col-sm-12 my-2 border">
+                    <h3 class="text-center">Income</h3>
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Income:</span>
                         <input type="number" class="form-control" aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-sm" id="income-input">
                     </div>
-                    <h3>Expenses</h3>
+                    <!-- Expenses Section -->
+                    <h3 class="text-center">Expenses</h3>
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Food:</span>
                         <input type="number" class="form-control" aria-label="Sizing example input"
@@ -48,12 +50,32 @@
                             aria-describedby="inputGroup-sizing-sm" id="clothes-input">
                     </div>
                     <button class="btn btn-primary" id="calculate-button">Calculate</button>
-                    <p>
-                        Total Expenses: <span id="total-expenses"></span>
-                    </p>
-                    <p>
-                        Balance: <span id="total-balance">0000</span>
-                    </p>
+                    <div>
+                        <p>
+                            Total Expenses: <span id="total-expenses">00</span>
+                        </p>
+                        <p>
+                            Balance: <span id="total-balance">00</span>
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Save:</span>
+                            <input type="number" class="" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-sm" id="amount-input"><span class=" mx-4">%</span>
+                            <button class="btn btn-primary" id="amount-save-button">Save</button>
+                        </div>
+
+                        <div>
+                            <p>
+                                Saving Amount: <span id="saving-amount">00</span>
+                            </p>
+                            <p>
+                                Remaining Balance: <span id="remaining-balance">00</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
