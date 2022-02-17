@@ -12,13 +12,13 @@ function isGreater(param1,param2){
 }
 // Validation End
 
-
+//Expenses Calculation
 function totalExpenses(foodInput,rentInput,clothesInput)
 {
-     const totalExpensesSum = parseFloat(rentInput)+parseFloat(foodInput)+parseFloat(clothesInput);
-     return totalExpensesSum;
+     const totalExpenses = parseFloat(rentInput)+parseFloat(foodInput)+parseFloat(clothesInput);
+     return totalExpenses;
 }
-
+//Balance Calculaqtion 
 function getBalance(income,expense){
 
     const getTotalBalance=parseFloat(income) - parseFloat(expense);
@@ -31,17 +31,16 @@ function getSaveAmount(income,percentage){
   return getSaveAmount;
 
 }
+//Remaining Balances
+function getRemainingAmount(income,expense,saveAmount){
 
-function getRemainingAmount(totalBalance,saveAmount){
-
-  const getRemainingAmount = parseFloat(totalBalance)-parseFloat(saveAmount);
+  const getRemainingAmount = parseFloat(income)-parseFloat(expense)-parseFloat(saveAmount);
   return getRemainingAmount;
 
 }
 
 
-// Validation funtion End 
-
+//All Data value Input
 document.getElementById("calculate-button").addEventListener
 ("click",function(){
 
@@ -53,6 +52,7 @@ document.getElementById("calculate-button").addEventListener
   
   const clothesInput= document.getElementById('clothes-input').value;
 
+  //Input Validation Applied
   if(isNotNumber(incomeInput) || isInputEmpty(incomeInput)){
     alert('Please Enter A Non Empty Number In Income Field');
     return false;
@@ -72,35 +72,44 @@ document.getElementById("calculate-button").addEventListener
     alert('Please Enter A Non Empty Number In Clothes Field');
     return false;
   }
-
+//Income Can not be Greater than Expanses
   const expense = totalExpenses(foodInput,rentInput,clothesInput);
   if(isGreater(expense,incomeInput)){
     alert('Total Expense is Greater Than Income');
     return false;
   }
+
+  //Balance Income - Expanses
   const balance = getBalance(incomeInput,expense);
+
   document.getElementById('total-expenses').innerText=expense;
   document.getElementById('total-balance').innerText=balance;
-
-
 });
 
+//Amount Button
 document.getElementById("amount-save-button").addEventListener
 ("click",function(){
 //Calculate Total Expenses
 
-const getIncomeBalance = document.getElementById('income-input').value;
+const incomeInput = document.getElementById('income-input').value;
 const savingPercentage = document.getElementById('amount-input').value;
-const totalBalance = document.getElementById('total-balance').innerHTML;
+const totalExpense = document.getElementById('total-expenses').innerHTML;
+if(isNotNumber(savingPercentage) || isInputEmpty(savingPercentage)){
+  alert('Please Enter A Non Empty Number In Save Field');
+  return false;
+}
+if(isInputEmpty(incomeInput)){
+  alert('income is empty');
+  return false;
+}
+const saveAmount = getSaveAmount(incomeInput,savingPercentage);
 
-
-const saveAmount = getSaveAmount(getIncomeBalance,savingPercentage);
-const remainingAmount = getRemainingAmount(totalBalance,saveAmount);
-
+const remainingAmount = getRemainingAmount(incomeInput,totalExpense,saveAmount);
 if(isGreater(saveAmount,remainingAmount)){
   alert('Savings Cant Be Greater Than Remaining Balance');
   return false;
 }
+
 document.getElementById('saving-amount').innerText=saveAmount;
 document.getElementById('remaining-balance').innerText=remainingAmount;
 
