@@ -1,6 +1,6 @@
 // validation start
 function isNotNumber(number){
-  return isNaN(number);
+  return isNaN(number) || parseFloat(number) < 0;
 }
 
 function isInputEmpty(inputField){
@@ -54,7 +54,7 @@ document.getElementById("calculate-button").addEventListener
 
   //Input Validation Applied
   if(isNotNumber(incomeInput) || isInputEmpty(incomeInput)){
-    alert('Please Enter A Non Empty Number In Income Field');
+    alert('Please Enter A Non Empty Positive Number In Income Field');
     return false;
   }
 
@@ -64,12 +64,12 @@ document.getElementById("calculate-button").addEventListener
   }
 
   if(isNotNumber(rentInput) || isInputEmpty(rentInput)){
-    alert('Please Enter A Non Empty Number In Rent Field');
+    alert('Please Enter A Non Empty Positive Number In Rent Field');
     return false;
   }
 
   if(isNotNumber(clothesInput) || isInputEmpty(clothesInput)){
-    alert('Please Enter A Non Empty Number In Clothes Field');
+    alert('Please Enter A Non Empty Positive Number In Clothes Field');
     return false;
   }
 //Income Can not be Greater than Expanses
@@ -95,7 +95,7 @@ const incomeInput = document.getElementById('income-input').value;
 const savingPercentage = document.getElementById('amount-input').value;
 const totalExpense = document.getElementById('total-expenses').innerHTML;
 if(isNotNumber(savingPercentage) || isInputEmpty(savingPercentage)){
-  alert('Please Enter A Non Empty Number In Save Field');
+  alert('Please Enter A Non Empty Positive Number In Save Field');
   return false;
 }
 if(isInputEmpty(incomeInput)){
