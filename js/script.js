@@ -1,29 +1,32 @@
-function getExpenses()
+// validation start
+function isNotNumber(number){
+  return isNaN(number);
+}
+
+function isInputEmpty(inputField){
+  return inputField == '' || inputField == null;
+}
+
+function isGreater(param1,param2){
+  return parseFloat(param1) > parseFloat(param2) ? true : false;
+}
+// Validation End
+
+
+function totalExpenses(foodInput,rentInput,clothesInput)
 {
-   // const incomeInput= document.getElementById('income-input').value;
-    // const incomeValue 
-    // console.log(incomeInput);
-     const foodInput= document.getElementById('food-input').value;
-   //  console.log(foodInput);
-     const rentInput= document.getElementById('rent-input').value;
-   //  console.log(rentInput);
-     const clothesInput= document.getElementById('clothes-input').value;
-    // console.log(clothesInput);
      const totalExpensesSum = parseFloat(rentInput)+parseFloat(foodInput)+parseFloat(clothesInput);
-    // console.log(totalExpensesSum);
      return totalExpensesSum;
 }
 
-function getBalance(){
+function getBalance(income,expense){
 
-    const getBalance=document.getElementById('income-input').value;
-    const getTotalBalance=parseFloat(getBalance);
+    const getTotalBalance=parseFloat(income) - parseFloat(expense);
     return getTotalBalance;
 
 }
-
+//Get Save Amount
 function getSaveAmount(income,percentage){
-
   const getSaveAmount = (parseFloat(income)*parseFloat(percentage))/100;
   return getSaveAmount;
 
@@ -36,35 +39,50 @@ function getRemainingAmount(totalBalance,saveAmount){
 
 }
 
-function validationRule1(totalExpense,getIncome){
-  return parseFloat(totalExpense) > getIncome ? true : false;
-}
 
-function validationRule2(savingAmount,remainingAmount){
-  return savingAmount > remainingAmount ? true : false;
-}
-
+// Validation funtion End 
 
 document.getElementById("calculate-button").addEventListener
 ("click",function(){
-//Calculate Total Expenses
 
-const totalExpense = getExpenses();
-const balance=getBalance();
-const isValidationFailed = validationRule1(totalExpense,balance);
+  const incomeInput= document.getElementById('income-input').value;
 
-if(isValidationFailed){
-  alert('error message');
-  return false;
-}
-const totalExpenses=document.getElementById('total-expenses');
-totalExpenses.innerText = totalExpense;
+  const foodInput= document.getElementById('food-input').value;
+  
+  const rentInput= document.getElementById('rent-input').value;
+  
+  const clothesInput= document.getElementById('clothes-input').value;
 
-//Total Balance
+  if(isNotNumber(incomeInput) || isInputEmpty(incomeInput)){
+    alert('Please Enter A Non Empty Number In Income Field');
+    return false;
+  }
 
-const currentBalance= getExpenses();
-const totalBalance=document.getElementById('total-balance');
-totalBalance.innerText=balance-currentBalance;
+  if(isNotNumber(foodInput) || isInputEmpty(foodInput)){
+    alert('Please Enter A Non Empty Number In Food Field');
+    return false;
+  }
+
+  if(isNotNumber(rentInput) || isInputEmpty(rentInput)){
+    alert('Please Enter A Non Empty Number In Rent Field');
+    return false;
+  }
+
+  if(isNotNumber(clothesInput) || isInputEmpty(clothesInput)){
+    alert('Please Enter A Non Empty Number In Clothes Field');
+    return false;
+  }
+
+  const expense = totalExpenses(foodInput,rentInput,clothesInput);
+  if(isGreater(expense,incomeInput)){
+    alert('Total Expense is Greater Than Income');
+    return false;
+  }
+  const balance = getBalance(incomeInput,expense);
+  document.getElementById('total-expenses').innerText=expense;
+  document.getElementById('total-balance').innerText=balance;
+
+
 });
 
 document.getElementById("amount-save-button").addEventListener
@@ -79,9 +97,8 @@ const totalBalance = document.getElementById('total-balance').innerHTML;
 const saveAmount = getSaveAmount(getIncomeBalance,savingPercentage);
 const remainingAmount = getRemainingAmount(totalBalance,saveAmount);
 
-const isValidationFailed = validationRule2(saveAmount,remainingAmount);
-if(isValidationFailed){
-  alert('error message2');
+if(isGreater(saveAmount,remainingAmount)){
+  alert('Savings Cant Be Greater Than Remaining Balance');
   return false;
 }
 document.getElementById('saving-amount').innerText=saveAmount;
